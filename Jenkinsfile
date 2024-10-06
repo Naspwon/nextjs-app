@@ -10,6 +10,12 @@ pipeline{
         nodejs 'node'
     }
     stages{
+        stage('Build') {
+            steps {
+                sh 'echo "Running inside Docker"'
+                sh 'node --version' // Example command to verify Node.js
+            }
+        }
         stage('git clone'){
             steps{
                 git(
@@ -25,7 +31,7 @@ pipeline{
         }
         stage('Test application'){
             steps{
-                echo 'npm run lint'
+                sh 'npm run lint'
             }
         }
         stage('Run application'){
@@ -33,11 +39,6 @@ pipeline{
                 sh 'nohup npm run dev &'
                 sleep 10
                 sh 'curl -I http://localhost:3000 || exit 1'
-            }
-        }
-        stage('Build') {
-            steps {
-                sh 'echo "Running inside Docker"'
             }
         }
         stage('Docker Login') {
@@ -64,6 +65,14 @@ pipeline{
                     sh "docker push $imageName"
                 }
             }
+        }
+    }
+    post {
+        success {
+            echo 'Pipeline completed successfully!'
+        }
+        failure {
+            echo 'Pipeline failed!'
         }
     }
 }
