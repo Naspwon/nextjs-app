@@ -1,7 +1,7 @@
 pipeline{
     // agent any
     agent {
-        dockerContainer {
+        docker {
             image 'node:latest' // Use a Node.js image
             args '-v /var/run/docker.sock:/var/run/docker.sock' // Mount Docker socket for Docker commands
         }
