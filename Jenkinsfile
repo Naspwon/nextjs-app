@@ -41,8 +41,8 @@ pipeline{
         stage('Build docker image'){
             steps{
                 def imageName = "missnayomie/nextjs-app:${env.BUILD_ID}" // Replace with your Docker Hub username
-                sh "docker build -t ${imageName} ."
-                sh "docker push ${imageName}"
+                sh "docker build -t $imageName ."
+                sh "docker push $imageName"
             }
         }
     }
