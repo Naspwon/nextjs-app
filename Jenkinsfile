@@ -1,11 +1,11 @@
 pipeline{
-    agent any
-    // agent {
-    //     docker { 
-    //         image 'docker:latest'
-    //         args '-v /var/run/docker.sock:/var/run/docker.sock'
-    //      }
-    // }
+    // agent any
+    agent {
+        docker {
+            image 'node:latest' // Use a Node.js image
+            args '-v /var/run/docker.sock:/var/run/docker.sock' // Mount Docker socket for Docker commands
+        }
+    }
     tools{
         nodejs 'node'
     }
