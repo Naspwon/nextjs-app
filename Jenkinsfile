@@ -35,6 +35,11 @@ pipeline{
                 sh 'curl -I http://localhost:3000 || exit 1'
             }
         }
+        stage('Build') {
+            steps {
+                sh 'echo "Running inside Docker"'
+            }
+        }
         stage('Docker Login') {
             steps {
                 script {
