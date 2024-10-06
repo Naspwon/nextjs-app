@@ -1,5 +1,7 @@
 pipeline{
-    agent any
+    // agent any
+    agent {
+        docker { image 'docker:19.03' }
     tools{
         nodejs 'node'
     }
