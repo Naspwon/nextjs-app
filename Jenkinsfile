@@ -38,10 +38,12 @@ pipeline{
                 }
             }
         }
-        stage('Build docker image'){
-            steps{
-                def imageName = "missnayomie/nextjs-app:${env.BUILD_ID}" // Replace with your Docker Hub username
-                sh "docker build -t $imageName ."
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    def imageName = "missnayomie/nextjs-app:${env.BUILD_ID}" // Replace with your Docker Hub username
+                    sh "docker build -t $imageName ."
+                }
             }
         }
         stage('Push Docker Image') {
