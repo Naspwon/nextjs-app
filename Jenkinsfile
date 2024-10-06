@@ -1,11 +1,11 @@
 pipeline{
-    // agent any
-    agent { 
-        docker {
-            image 'node:20.18.0-alpine3.20'
-            label 'docker' // Use the label you specified for your Docker agents
-        }
-     }
+    agent any
+    // agent { 
+    //     docker {
+    //         image 'node:20.18.0-alpine3.20'
+    //         label 'docker' // Use the label you specified for your Docker agents
+    //     }
+    //  }
     tools{
         nodejs 'node'
     }
@@ -41,31 +41,31 @@ pipeline{
                 sh 'curl -I http://localhost:3000 || exit 1'
             }
         }
-        stage('Docker Login') {
-            steps {
-                script {
-                    withCredentials([usernamePassword(credentialsId: 'dockerhub_credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                        sh 'echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin'
-                    }
-                }
-            }
-        }
-        stage('Build Docker Image') {
-            steps {
-                script {
-                    def imageName = "missnayomie/nextjs-app:${env.BUILD_ID}" // Replace with your Docker Hub username
-                    sh "docker build -t $imageName ."
-                }
-            }
-        }
-        stage('Push Docker Image') {
-            steps {
-                script {
-                    def imageName = "missnayomie/nextjs-app:${env.BUILD_ID}" // Replace with your Docker Hub username
-                    sh "docker push $imageName"
-                }
-            }
-        }
+        // stage('Docker Login') {
+        //     steps {
+        //         script {
+        //             withCredentials([usernamePassword(credentialsId: 'dockerhub_credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+        //                 sh 'echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin'
+        //             }
+        //         }
+        //     }
+        // }
+        // stage('Build Docker Image') {
+        //     steps {
+        //         script {
+        //             def imageName = "missnayomie/nextjs-app:${env.BUILD_ID}" // Replace with your Docker Hub username
+        //             sh "docker build -t $imageName ."
+        //         }
+        //     }
+        // }
+        // stage('Push Docker Image') {
+        //     steps {
+        //         script {
+        //             def imageName = "missnayomie/nextjs-app:${env.BUILD_ID}" // Replace with your Docker Hub username
+        //             sh "docker push $imageName"
+        //         }
+        //     }
+        // }
     }
     post {
         success {
