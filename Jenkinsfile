@@ -1,6 +1,11 @@
 pipeline{
     // agent any
-    agent { dockerfile true }
+    agent { 
+        docker {
+            image 'node:20.18.0-alpine3.20'
+            label 'docker-agent' // Use the label you specified for your Docker agents
+        }
+     }
     tools{
         nodejs 'node'
     }
