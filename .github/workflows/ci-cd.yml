@@ -1,31 +1,31 @@
-name: CICD on Heroku
+# name: CICD on Heroku
 
-on:
-  push:
-  pull_request:
-  workflow_dispatch:
+# on:
+#   push:
+#   pull_request:
+#   workflow_dispatch:
 
-jobs:
-  build-and-test:
-    runs-on: ubuntu-latest
+# jobs:
+#   build-and-test:
+#     runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@vs
-        with:
-          fetch-depth: 0
+#     steps:
+#       - uses: actions/checkout@vs
+#         with:
+#           fetch-depth: 0
 
-      - name: Use Node.js
-        uses: actions/checkout@vs
-        with:
-          node-version: '20.13.1'
+#       - name: Use Node.js
+#         uses: actions/checkout@vs
+#         with:
+#           node-version: '20.13.1'
 
-      - name: Install dependencies
-        run: npm install
+#       - name: Install dependencies
+#         run: npm install
 
-      - name: Run lint
-        run: npm run lint
+#       - name: Run lint
+#         run: npm run lint
       
-      - name: Check commit messages
-        uses: wagoid/commitlint-github-action@v3
-        with:
-          configFile: commitlint.config.js
+#       - name: Check commit messages
+#         uses: wagoid/commitlint-github-action@v3
+#         with:
+#           configFile: commitlint.config.js
