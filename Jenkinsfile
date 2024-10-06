@@ -29,5 +29,21 @@ pipeline{
                 sh 'curl -I http://localhost:3000 || exit 1'
             }
         }
+        stage('Docker Login') {
+            steps {
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'dockerhub_credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                        sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
+                    }
+                }
+            }
+        }
+        stage('Build docker image'){
+            steps{
+                def imageName = "missnayomie/nextjs-app:${env.BUILD_ID}" // Replace with your Docker Hub username
+                sh "docker build -t ${imageName} ."
+                sh "docker push ${imageName}"
+            }
+        }
     }
 }
