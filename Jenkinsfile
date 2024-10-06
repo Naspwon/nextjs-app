@@ -2,7 +2,7 @@ pipeline{
     // agent any
     agent {
         docker { 
-            image 'docker:19.03'
+            image 'docker:latest'
             args '-v /var/run/docker.sock:/var/run/docker.sock'
          }
     }
@@ -10,7 +10,7 @@ pipeline{
         nodejs 'node'
     }
     stages{
-        stage('Build') {
+        stage('Test') {
             steps {
                 sh 'echo "Running inside Docker"'
                 sh 'node --version' // Example command to verify Node.js
